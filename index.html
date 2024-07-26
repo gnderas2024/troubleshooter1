@@ -4,6 +4,7 @@
   <title>No Power Issue Troubleshooter</title>
   <link rel="stylesheet" type="text/css" href="styles.css">
   <link rel="icon" href="favicon.ico" type="image/x-icon">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <script src="https://d3js.org/d3.v7.min.js"></script>
 </head>
 <body>
@@ -13,6 +14,8 @@
       <!-- Preguntas dinámicas se insertarán aquí -->
     </div>
     <button id="next-button">Next</button>
+    <!-- Canvas para el gráfico de Chart.js -->
+    <canvas id="responsesChart" width="400" height="200"></canvas>
     <!-- Div para el diagrama de flujo -->
     <div id="flowchart"></div>
   </div>
