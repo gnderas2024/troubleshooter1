@@ -35,13 +35,13 @@ document.addEventListener('DOMContentLoaded', function() {
             container.appendChild(noButton);
         } else {
             container.innerHTML = '<p>¡Gracias por completar el solucionador de problemas!</p>';
-            renderFlowchart(); // Renderizar el diagrama de flujo
             updateChart(); // Actualizar el gráfico
         }
     }
 
     function nextStep(step) {
         loadQuestion(step);
+        renderFlowchart(); // Renderizar el diagrama de flujo
     }
 
     function updateChart() {
