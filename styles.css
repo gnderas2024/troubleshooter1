@@ -1,14 +1,13 @@
 body {
     font-family: Arial, sans-serif;
-  }
-  
-  #app {
+}
+
+#app {
     max-width: 600px;
     margin: 0 auto;
     text-align: center;
-  }
-  
-  #question-container {
+}
+
+#question-container {
     margin: 20px 0;
-  }
-  
+}
