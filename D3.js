@@ -35,7 +35,8 @@ document.addEventListener('DOMContentLoaded', function() {
             container.appendChild(noButton);
         } else {
             container.innerHTML = '<p>¡Gracias por completar el solucionador de problemas!</p>';
-            renderFlowchart();
+            renderFlowchart(); // Renderizar el diagrama de flujo
+            updateChart(); // Actualizar el gráfico
         }
     }
 
@@ -43,12 +44,41 @@ document.addEventListener('DOMContentLoaded', function() {
         loadQuestion(step);
     }
 
+    function updateChart() {
+        var ctx = document.getElementById('responsesChart').getContext('2d');
+        if (!ctx) {
+            console.error("El elemento canvas no se encontró.");
+            return;
+        }
+        var chart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: ['Sí', 'No'],
+                datasets: [{
+                    label: 'Número de Respuestas',
+                    data: [
+                        responses.filter(r => r === 'Sí').length,
+                        responses.filter(r => r === 'No').length
+                    ],
+                    backgroundColor: ['#36a2eb', '#ff6384']
+                }]
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+    }
+
     function renderFlowchart() {
-        d3.select("#flowchart").selectAll("*").remove(); // Clear previous chart
+        d3.select("#flowchart").selectAll("*").remove(); // Limpiar gráfico anterior
 
         var svg = d3.select("#flowchart").append("svg")
             .attr("width", "100%")
-            .attr("height", "100%");
+            .attr("height", "600");
 
         var nodes = [];
         var links = [];
@@ -110,7 +140,8 @@ document.addEventListener('DOMContentLoaded', function() {
         var response = prompt("Edit your response (Sí/No):", responses[id]);
         if (response === "Sí" || response === "No") {
             responses[id] = response;
-            renderFlowchart();
+            renderFlowchart(); // Volver a renderizar el diagrama de flujo
+            updateChart(); // Volver a actualizar el gráfico
         }
     }
 
