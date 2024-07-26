@@ -36,12 +36,12 @@ document.addEventListener('DOMContentLoaded', function() {
         } else {
             container.innerHTML = '<p>¡Gracias por completar el solucionador de problemas!</p>';
             updateChart(); // Actualizar el gráfico
+            renderFlowchart(); // Renderizar el diagrama de flujo
         }
     }
 
     function nextStep(step) {
         loadQuestion(step);
-        renderFlowchart(); // Renderizar el diagrama de flujo
     }
 
     function updateChart() {
@@ -50,7 +50,7 @@ document.addEventListener('DOMContentLoaded', function() {
             console.error("El elemento canvas no se encontró.");
             return;
         }
-        var chart = new Chart(ctx, {
+        new Chart(ctx, {
             type: 'bar',
             data: {
                 labels: ['Sí', 'No'],
@@ -74,9 +74,10 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     function renderFlowchart() {
-        d3.select("#flowchart").selectAll("*").remove(); // Limpiar gráfico anterior
+        var svgContainer = d3.select("#flowchart");
+        svgContainer.selectAll("*").remove(); // Limpiar gráfico anterior
 
-        var svg = d3.select("#flowchart").append("svg")
+        var svg = svgContainer.append("svg")
             .attr("width", "100%")
             .attr("height", "600");
 
@@ -115,7 +116,8 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         });
 
-        var link = svg.selectAll(".link")
+        // Dibujar enlaces
+        svg.selectAll(".link")
             .data(links)
             .enter().append("line")
             .attr("class", "link")
@@ -127,6 +129,7 @@ document.addEventListener('DOMContentLoaded', function() {
             .attr("stroke-width", 2)
             .attr("marker-end", "url(#arrow)");
 
+        // Dibujar nodos
         var node = svg.selectAll(".node")
             .data(nodes)
             .enter().append("g")
