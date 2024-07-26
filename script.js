@@ -4,31 +4,27 @@ var responses = {
     no: 0
 };
 
-// Función para crear un gráfico con D3.js
-function createBarChart(data) {
-    var svg = d3.select("#chart").append("svg")
-        .attr("width", 500)
-        .attr("height", 300);
-
-    var x = d3.scaleBand()
-        .domain(data.map(d => d.label))
-        .range([0, 500])
-        .padding(0.1);
-
-    var y = d3.scaleLinear()
-        .domain([0, d3.max(data, d => d.value)])
-        .nice()
-        .range([300, 0]);
-
-    svg.selectAll(".bar")
-        .data(data)
-        .enter().append("rect")
-        .attr("class", "bar")
-        .attr("x", d => x(d.label))
-        .attr("y", d => y(d.value))
-        .attr("width", x.bandwidth())
-        .attr("height", d => 300 - y(d.value))
-        .attr("fill", (d, i) => i === 0 ? "#36a2eb" : "#ff6384");
+// Función para actualizar el gráfico
+function updateChart() {
+    var ctx = document.getElementById('responsesChart').getContext('2d');
+    var chart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: ['Sí', 'No'],
+            datasets: [{
+                label: 'Número de Respuestas',
+                data: [responses.yes, responses.no],
+                backgroundColor: ['#36a2eb', '#ff6384']
+            }]
+        },
+        options: {
+            scales: {
+                y: {
+                    beginAtZero: true
+                }
+            }
+        }
+    });
 }
 
 document.getElementById('next-button').addEventListener('click', function() {
@@ -72,12 +68,8 @@ function loadQuestion(step) {
         container.appendChild(noButton);
     } else {
         container.innerHTML = '<p>¡Gracias por completar el solucionador de problemas!</p>';
-        // Crear el gráfico con las respuestas finales
-        var data = [
-            {label: 'Sí', value: responses.yes},
-            {label: 'No', value: responses.no}
-        ];
-        createBarChart(data);
+        // Actualizar el gráfico con las respuestas finales
+        updateChart();
     }
 }
 
