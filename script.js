@@ -80,14 +80,27 @@ document.addEventListener('DOMContentLoaded', function() {
             .attr("width", "100%")
             .attr("height", "600");
 
+        // Definir las flechas
+        svg.append("defs").append("marker")
+            .attr("id", "arrow")
+            .attr("viewBox", "0 0 10 10")
+            .attr("refX", 9)
+            .attr("refY", 5)
+            .attr("markerWidth", 6)
+            .attr("markerHeight", 6)
+            .attr("orient", "auto")
+            .append("path")
+            .attr("d", "M 0 0 L 10 5 L 0 10 z");
+
         var nodes = [];
         var links = [];
         var yOffset = 50;
+        var xOffset = 200;
 
         responses.forEach((response, index) => {
             var node = {
                 id: index,
-                x: 200,
+                x: xOffset,
                 y: yOffset + (index * 100),
                 question: questions[index],
                 response: response
@@ -110,8 +123,9 @@ document.addEventListener('DOMContentLoaded', function() {
             .attr("y1", d => nodes[d.source].y)
             .attr("x2", d => nodes[d.target].x)
             .attr("y2", d => nodes[d.target].y)
-            .attr("stroke", "#999")
-            .attr("stroke-width", 2);
+            .attr("stroke", "#000000")
+            .attr("stroke-width", 2)
+            .attr("marker-end", "url(#arrow)");
 
         var node = svg.selectAll(".node")
             .data(nodes)
@@ -125,8 +139,10 @@ document.addEventListener('DOMContentLoaded', function() {
         node.append("rect")
             .attr("width", 200)
             .attr("height", 60)
-            .attr("fill", "#fff")
-            .attr("stroke", "#000");
+            .attr("fill", "#ffffff")
+            .attr("stroke", "#000000")
+            .attr("rx", 10)
+            .attr("ry", 10);
 
         node.append("text")
             .attr("x", 10)
