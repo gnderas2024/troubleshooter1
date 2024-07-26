@@ -27,3 +27,8 @@ body {
     border-radius: 5px;
     text-align: center;
 }
+
+.link {
+    stroke: #999;
+    stroke-width: 2px;
+}
