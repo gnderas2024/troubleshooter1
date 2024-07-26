@@ -3,11 +3,27 @@ body {
 }
 
 #app {
-    max-width: 600px;
+    max-width: 800px;
     margin: 0 auto;
     text-align: center;
 }
 
 #question-container {
     margin: 20px 0;
+}
+
+#flowchart {
+    margin-top: 20px;
+    position: relative;
+    height: 600px;
+    width: 100%;
+}
+
+.node {
+    cursor: pointer;
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    padding: 10px;
+    border-radius: 5px;
+    text-align: center;
 }
